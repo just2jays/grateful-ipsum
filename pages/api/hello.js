@@ -1,42 +1,4 @@
-// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-
-const wordArray = [
-  'Bobby',
-  'Jerry',
-  'Phil',
-  'Mickey',
-  'Bill',
-  'Billy',
-  'Lesh',
-  'Garcia',
-  'Weir',
-  'Hart',
-  'Kreutzmann',
-  'Grateful Dead',
-  'wall of sound',
-  'sugaree',
-  'sugar magnolia',
-  'red whiskey',
-  'Bertha',
-  'dancing',
-  'terrapin station',
-  'inspiration',
-  'smile',
-  'Barton hall',
-  'on the bus',
-  'acid test',
-  'pigpen',
-  'Ron',
-  'McKernan',
-  'alligator',
-  'wolf',
-  'dire wolf',
-  'tiger',
-  'rosebud',
-  'lazy lightning',
-  'bolt',
-  'stealie',
-];
+import dictionary from '../../config/dictionary';
 
 export default (req, res) => {
   const paragraphsRequest = req.query.numParagraphs || 3;
@@ -46,7 +8,7 @@ export default (req, res) => {
   }
 
   const fetchRandomWord = () => {
-    return wordArray[Math.floor(Math.random() * wordArray.length)];
+    return dictionary[Math.floor(Math.random() * dictionary.length)];
   }
 
   const buildSentence = () => {
