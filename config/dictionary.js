@@ -1,4 +1,4 @@
-const wordDictionary = [
+const deadDictionary = [
   'Bobby',
   'Jerry',
   'Phil',
@@ -42,4 +42,16 @@ const wordDictionary = [
   'take a step back'
 ];
 
-export default wordDictionary;
+const deadAndCoDictionary = [
+  'John',
+  'Mayer',
+  'Oteil',
+  'Burbridge',
+  'Jeff',
+  'Chimenti'
+];
+
+export {
+  deadDictionary,
+  deadAndCoDictionary
+};
