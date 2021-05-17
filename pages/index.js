@@ -28,27 +28,46 @@ export default function Home() {
         setResults(response.data.stuff);
         setIsLoading(false);
       });
-  }
+  };
 
   const toggleDarkMode = (e) => {
     e.preventDefault();
 
     if (darkMode) {
-      document.body.classList.remove('dark');
+      document.body.classList.remove("dark");
       setDarkMode(false);
-    }else{
-      document.body.classList.add('dark');
+    } else {
+      document.body.classList.add("dark");
       setDarkMode(true);
     }
-  }
+  };
 
   return (
-    <div id="app__Homepage" class="dark:bg-gray-600">
+    <div id="app__Homepage" className="dark:bg-gray-600">
       <Head>
         <title>Grateful Ipsum</title>
-        <meta name="description" content="A Lorem Ipsum placeholder text generator using terms from the greatest band in the land, the Grateful Dead." />
-        <meta name="keywords" content="jambands, grateful, dead, jerry, phish, trey, phil" />
+        <meta
+          name="description"
+          content="A Lorem Ipsum placeholder text generator using terms from the greatest band in the land, the Grateful Dead."
+        />
+        <meta
+          name="keywords"
+          content="jambands, grateful, dead, jerry, phish, trey, phil"
+        />
         <link rel="icon" href="/favicon.ico" />
+
+        {/* Global Site Tag (gtag.js) - Google Analytics */}
+        <script async src={`https://www.googletagmanager.com/gtag/js?id=G-14GWEHQM0J`}/>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-14GWEHQM0J');
+          `,
+          }}
+        />
       </Head>
       <NavBar />
       {/* HEADER */}
@@ -60,13 +79,14 @@ export default function Home() {
           <p className="mt-4 max-w-2xl text-xl text-gray-500 dark:text-gray-200 lg:mx-auto">
             In the publishing and graphic design worlds, it's common to need
             "placeholder" text in order to demonstrate how copy will appear
-            visually, without relying on <span className="italic">the actual</span>{" "}
-            text being available.
+            visually, without relying on{" "}
+            <span className="italic">the actual</span> text being available.
             <br />
           </p>
           <p className="mt-4 max-w-2xl text-xl text-gray-500 dark:text-gray-200 lg:mx-auto">
-            Enter <span className="font-bold">Grateful Ipsum</span>...placeholder
-            text for <span className="font-mono">{`Dead</head>s`}</span>
+            Enter <span className="font-bold">Grateful Ipsum</span>
+            ...placeholder text for{" "}
+            <span className="font-mono">{`Dead</head>s`}</span>
           </p>
         </div>
       </header>
@@ -80,7 +100,7 @@ export default function Home() {
             </label>
             <input
               type="text"
-              className="dark:text-gray-200 w-20 bg-gray-50 bg-opacity-50 rounded border border-gray-300 focus:ring-2 focus:ring-indigo-200 focus:border-indigo-500 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+              className="dark:text-white w-20 bg-gray-50 bg-opacity-50 rounded border border-gray-300 focus:ring-2 focus:ring-indigo-200 focus:border-indigo-500 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
               placeholder="# of paragraphs"
               value={numParagraphs}
               onChange={(event) => {
@@ -101,7 +121,7 @@ export default function Home() {
             </div>
           </form>
           <button
-            className="inline-flex text-white bg-blue-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded"
+            className="transition-colors duration-200 inline-flex text-white bg-blue-700 border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded"
             onClick={fetchTextFromApi}
           >
             Generate
