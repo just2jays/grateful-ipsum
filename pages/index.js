@@ -96,7 +96,13 @@ export default function Home() {
       {/* MAIN */}
       <main className="container mx-auto max-w-3xl">
         <div className="shadow flex justify-between items-end p-2 bg-gray-100 rounded sticky top-0 sm:relative dark:bg-gray-800">
-          <form className="w-full">
+          <form
+            className="w-full"
+            onSubmit={(e) => {
+              e.preventDefault();
+              fetchTextFromApi();
+            }}
+          >
             <div className="flex">
               <div className="container">
                 <label className="dark:text-gray-200 leading-7 text-sm text-gray-600">
