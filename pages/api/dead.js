@@ -6,9 +6,11 @@ import {
 export default (req, res) => {
   const paragraphsRequest = req.query.numParagraphs || 3;
   const withDeadAndCo = req.query.withDeadAndCo || false;
+  const jerryMode = req.query.jerryMode || false;
 
   let useDictionary = [...deadDictionary];
   if(withDeadAndCo === 'true') useDictionary.push(...deadAndCoDictionary);
+  if(jerryMode === 'true') useDictionary = ['smile'];
 
   const capitalizeFirstLetter = (string) => {
     return string.charAt(0).toUpperCase() + string.slice(1);
@@ -18,8 +20,14 @@ export default (req, res) => {
     return useDictionary[Math.floor(Math.random() * useDictionary.length)];
   }
 
+  function totallyRandomIntFromInterval(min, max) { // min and max included 
+    const randomNum = Math.floor(Math.random() * (max - min + 1) + min);
+    return randomNum % 2 ? Math.abs(randomNum) : -Math.abs(randomNum);
+  }
+
   const buildSentence = () => {
-    const maxSentenceCharacterCount = 100;
+    const sentenceLengthModifier = totallyRandomIntFromInterval(10, 30);
+    const maxSentenceCharacterCount = 100 + sentenceLengthModifier;
     let currentCharacterCount = 0;
     let sentenceWordArray = [];
     while (currentCharacterCount < maxSentenceCharacterCount) {

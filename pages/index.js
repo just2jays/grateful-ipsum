@@ -9,11 +9,12 @@ export default function Home() {
   const [results, setResults] = useState([]);
   const [numParagraphs, setNumParagraphs] = useState(3);
   const [withDeadAndCo, setWithDeadAndCo] = useState(false);
+  const [jerryMode, setJerryMode] = useState(false);
   const [darkMode, setDarkMode] = useState(false);
 
   useEffect(() => {
     fetchTextFromApi();
-  }, [numParagraphs, withDeadAndCo]);
+  }, [numParagraphs, withDeadAndCo, jerryMode]);
 
   const fetchTextFromApi = () => {
     setIsLoading(true);
@@ -22,6 +23,7 @@ export default function Home() {
         params: {
           numParagraphs: numParagraphs,
           withDeadAndCo: withDeadAndCo,
+          jerryMode: jerryMode,
         },
       })
       .then((response) => {
@@ -94,30 +96,46 @@ export default function Home() {
       {/* MAIN */}
       <main className="container mx-auto max-w-3xl">
         <div className="shadow flex justify-between items-end p-2 bg-gray-100 rounded sticky top-0 sm:relative dark:bg-gray-800">
-          <form>
-            <label className="dark:text-gray-200 leading-7 text-sm text-gray-600">
-              # of Paragraphs &nbsp;
-            </label>
-            <input
-              type="text"
-              className="dark:text-white w-20 bg-gray-50 bg-opacity-50 rounded border border-gray-300 focus:ring-2 focus:ring-indigo-200 focus:border-indigo-500 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
-              placeholder="# of paragraphs"
-              value={numParagraphs}
-              onChange={(event) => {
-                setNumParagraphs(event.target.value);
-              }}
-            />
-            <br />
-            <div className="flex items-center mr-4 mb-2">
-              <input
-                type="checkbox"
-                onChange={(event) => {
-                  setWithDeadAndCo(event.target.checked);
-                }}
-              />
-              <label className="dark:text-gray-200 leading-7 text-sm text-gray-600">
-                &nbsp; Include D&C
-              </label>
+          <form className="w-full">
+            <div className="flex">
+              <div className="container">
+                <label className="dark:text-gray-200 leading-7 text-sm text-gray-600">
+                  # of Paragraphs &nbsp;
+                </label>
+                <input
+                  type="text"
+                  className="dark:text-white w-20 bg-gray-50 bg-opacity-50 rounded border border-gray-300 focus:ring-2 focus:ring-indigo-200 focus:border-indigo-500 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+                  placeholder="# of paragraphs"
+                  value={numParagraphs}
+                  onChange={(event) => {
+                    setNumParagraphs(event.target.value);
+                  }}
+                />
+              </div>
+            </div>
+            <div className="flex flex w-2/4">
+              <div className="container">
+                <input
+                  type="checkbox"
+                  onChange={(event) => {
+                    setWithDeadAndCo(event.target.checked);
+                  }}
+                />
+                <label className="dark:text-gray-200 leading-7 text-sm text-gray-600">
+                  &nbsp; Include D&C
+                </label>
+              </div>
+              <div className="container">
+                <input
+                  type="checkbox"
+                  onChange={(event) => {
+                    setJerryMode(event.target.checked);
+                  }}
+                />
+                <label className="dark:text-gray-200 leading-7 text-sm text-gray-600">
+                  &nbsp; JerryMode
+                </label>
+              </div>
             </div>
           </form>
           <button
