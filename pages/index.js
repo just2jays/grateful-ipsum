@@ -152,7 +152,7 @@ export default function Home() {
           </button>
         </div>
 
-        <div className="shadow mb-5 dark:bg-gray-700 px-5 pb-4 pt-4">
+        <div className="mx-3 shadow mb-5 dark:bg-gray-700 px-5 pb-4 pt-4">
           {results.map((result, index) => (
             <p
               key={`paragraph-${index}`}

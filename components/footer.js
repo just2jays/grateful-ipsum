@@ -2,7 +2,7 @@ import React from 'react';
 
 const Footer = ({ toggleDarkMode }) => {
   return (
-    <footer className="px-3 py-8 bg-white dark:bg-gray-700 text-2 text-gray-500 dark:text-gray-200 mt-20">
+    <footer className="px-3 py-8 bg-white dark:bg-gray-700 text-2 text-gray-500 dark:text-gray-200 mt-10 xl:mt-20">
       <div className="flex flex-col">
         <div className="md:hidden mt-7 mx-auto w-11 h-px rounded-full"></div>
         <div className="mt-4 md:mt-0 flex flex-col md:flex-row">
