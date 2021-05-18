@@ -47,14 +47,14 @@ export default function Home() {
   return (
     <div id="app__Homepage" className="dark:bg-gray-600">
       <Head>
-        <title>Grateful Ipsum</title>
+        <title>Grateful Ipsum | Generate placeholder text with inspiration from the Grateful Dead</title>
         <meta
           name="description"
           content="A Lorem Ipsum placeholder text generator using terms from the greatest band in the land, the Grateful Dead."
         />
         <meta
           name="keywords"
-          content="jambands, grateful, dead, jerry, phish, trey, phil"
+          content="grateful dead, grateful, dead, bobby, bob weir, phil lesh, phil, jerry garcia, jerry, phish, trey, phil, lorem ipsum, placeholder, deadheads, shakedown, shakedown street"
         />
         <link rel="icon" href="/favicon.ico" />
 

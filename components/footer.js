@@ -61,7 +61,7 @@ const Footer = ({ toggleDarkMode }) => {
               Created by&nbsp;
               <a
                 className="underline hover:text-primary-gray-20"
-                href="https://www.github.com/just2jays"
+                href="https://www.github.com/just2jays/grateful-ipsum"
               >
                 JJ
               </a>&nbsp; 💀
