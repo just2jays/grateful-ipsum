@@ -4,6 +4,8 @@ import axios from "axios";
 import NavBar from "../components/navbar";
 import Footer from "../components/footer";
 
+const MAX_PARAGRAPHS = 25; // MAXIMUM LIMIT OF PARAGRAPHS TO FETCH
+
 export default function Home() {
   const [isLoading, setIsLoading] = useState(false);
   const [results, setResults] = useState([]);
@@ -21,7 +23,7 @@ export default function Home() {
     axios
       .get("/api/dead", {
         params: {
-          numParagraphs: numParagraphs,
+          numParagraphs: numParagraphs <= MAX_PARAGRAPHS ? numParagraphs : MAX_PARAGRAPHS,
           withDeadAndCo: withDeadAndCo,
           jerryMode: jerryMode,
         },
@@ -117,9 +119,10 @@ export default function Home() {
                     setNumParagraphs(event.target.value);
                   }}
                 />
+                <span class="dark:text-gray-200 leading-7 text-sm text-gray-600">&nbsp;(Max 25)</span>
               </div>
             </div>
-            <div className="flex flex w-2/4">
+            <div className="flex flex w-3/4 md:w-2/4">
               <div className="container">
                 <input
                   type="checkbox"
