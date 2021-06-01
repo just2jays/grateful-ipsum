@@ -46,7 +46,9 @@ export default function Home() {
     }
   };
 
-  const copyGeneratedParagraphs = () => {
+  const copyGeneratedParagraphs = (e) => {
+    e.preventDefault();
+    
     let paragraphHolder = document.getElementById('paragraphHolder');
     let paragraphText = paragraphHolder.innerText;
     let dummyTextArea  = document.createElement('textarea');
@@ -56,6 +58,12 @@ export default function Home() {
     dummyTextArea.select();
     document.execCommand('copy');
     document.body.removeChild(dummyTextArea);
+
+    // Update button text temporarily to notify user
+    e.target.innerText = 'Copied!';
+    setTimeout(() => {
+      e.target.innerText = 'Copy';
+    }, 2000)
   }
 
   return (
