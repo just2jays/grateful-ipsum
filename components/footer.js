@@ -26,7 +26,7 @@ const Footer = ({ toggleDarkMode }) => {
           <div className="mt-4 md:mt-0 flex-1 flex items-center justify-center md:border-r border-gray-100">
             <a
               className="hover:text-primary-gray-20"
-              href="https://github.com/Charlie85270/tail-kit"
+              href="https://github.com/just2jays/grateful-ipsum"
             >
               <span className="sr-only">View on GitHub</span>
               <svg
