@@ -46,6 +46,18 @@ export default function Home() {
     }
   };
 
+  const copyGeneratedParagraphs = () => {
+    let paragraphHolder = document.getElementById('paragraphHolder');
+    let paragraphText = paragraphHolder.innerText;
+    let dummyTextArea  = document.createElement('textarea');
+    dummyTextArea.display = "none";
+    dummyTextArea.value = paragraphText;
+    document.body.append(dummyTextArea);
+    dummyTextArea.select();
+    document.execCommand('copy');
+    document.body.removeChild(dummyTextArea);
+  }
+
   return (
     <div id="app__Homepage" className="dark:bg-gray-600">
       <Head>
@@ -119,7 +131,7 @@ export default function Home() {
                     setNumParagraphs(event.target.value);
                   }}
                 />
-                <span class="dark:text-gray-200 leading-7 text-sm text-gray-600">&nbsp;(Max 25)</span>
+                <span className="dark:text-gray-200 leading-7 text-sm text-gray-600">&nbsp;(Max 25)</span>
               </div>
             </div>
             <div className="flex flex w-3/4 md:w-2/4">
@@ -148,14 +160,24 @@ export default function Home() {
             </div>
           </form>
           <button
-            className="transition-colors duration-200 inline-flex text-white bg-blue-700 border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded"
+            className="transition-colors duration-200 inline-flex text-white bg-blue-700 border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded mr-1"
             onClick={fetchTextFromApi}
           >
             Generate
           </button>
+          <button
+            className="transition-colors duration-200 bg-blue-700 hover:bg-red-600 text-white py-2 px-6 rounded inline-flex items-center"
+            onClick={copyGeneratedParagraphs}
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="clipboard-svg-icon"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg>
+            <span>Copy</span>
+          </button>
         </div>
 
-        <div className="mx-3 shadow mb-5 dark:bg-gray-700 px-5 pb-4 pt-4">
+        <div
+          id="paragraphHolder"
+          className="mx-3 shadow mb-5 dark:bg-gray-700 px-5 pb-4 pt-4"
+        >
           {results.map((result, index) => (
             <p
               key={`paragraph-${index}`}
