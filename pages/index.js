@@ -7,6 +7,9 @@ import Footer from "../components/footer";
 // CONSTANTS
 const MAX_PARAGRAPHS = 25; // MAXIMUM LIMIT OF PARAGRAPHS TO FETCH
 
+/**
+ * Home page component
+ */
 export default function Home() {
   const [isLoading, setIsLoading] = useState(false);
   const [results, setResults] = useState([]);
@@ -23,11 +26,6 @@ export default function Home() {
 
   /**
    * Calls the API to fetch the text
-   * @param {number} numParagraphs - number of paragraphs to fetch
-   * @param {object} optionsObj  - options to pass to the API
-   * @param {boolean} optionsObj.withDeadAndCo - whether to include Dead & Co. terms
-   * @param {boolean} optionsObj.jerryMode - whether to include Jerry Garcia terms
-   * @return {void} - response is stored in state
    */
   const fetchTextFromApi = (numParagraphs, optionsObj = {}) => {
     setIsLoading(true);
@@ -46,7 +44,6 @@ export default function Home() {
 
   /**
    * Toggle dark mode functionality
-   * @param {*} e 
    */
   const toggleDarkMode = (e) => {
     e.preventDefault();
@@ -62,8 +59,6 @@ export default function Home() {
 
   /**
    * Native copy functionality for generated text
-   * @param {*} e
-   * @return {void}
    */
   const copyGeneratedParagraphs = (e) => {
     e.preventDefault();
@@ -87,9 +82,6 @@ export default function Home() {
 
   /**
    * Increment the number of paragraphs to fetch
-   * @param {*} e
-   * @return {void}
-   * @todo - refactor to use a single function for incrementing/decrementing
    */
   const incrementParagraphs = (e) => {
     e.preventDefault();
@@ -106,8 +98,6 @@ export default function Home() {
 
   /**
    * Decrement the number of paragraphs to fetch
-   * @param {*} e
-   * @return {void}
    */
   const decrementParagraphs = (e) => {
     e.preventDefault();
@@ -138,22 +128,6 @@ export default function Home() {
           content="grateful dead, grateful, dead, bobby, bob weir, phil lesh, phil, jerry garcia, jerry, phish, trey, phil, lorem ipsum, placeholder, deadheads, shakedown, shakedown street"
         />
         <link rel="icon" href="/favicon.ico" />
-
-        {/* Global Site Tag (gtag.js) - Google Analytics */}
-        <script
-          async
-          src={`https://www.googletagmanager.com/gtag/js?id=G-14GWEHQM0J`}
-        />
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'G-14GWEHQM0J');
-          `,
-          }}
-        />
       </Head>
       <NavBar />
       {/* HEADER */}
@@ -197,27 +171,27 @@ export default function Home() {
                 <label className="dark:text-gray-200 leading-7 text-sm text-gray-600">
                   # of Paragraphs &nbsp;
                 </label>
-                <div class="custom-number-input h-10 w-32">
-                  <div class="flex flex-row h-10 w-full rounded-lg relative bg-transparent mt-1">
+                <div className="custom-number-input h-10 w-32">
+                  <div className="flex flex-row h-10 w-full rounded-lg relative bg-transparent mt-1">
                     <button
                       data-action="decrement"
-                      class=" bg-gray-300 text-gray-600 hover:text-gray-700 hover:bg-gray-400 h-full w-20 rounded-l cursor-pointer outline-none"
+                      className=" bg-gray-300 text-gray-600 hover:text-gray-700 hover:bg-gray-400 h-full w-20 rounded-l cursor-pointer outline-none"
                       onClick={decrementParagraphs}
                     >
-                      <span class="m-auto text-2xl font-thin">−</span>
+                      <span className="m-auto text-2xl font-thin">−</span>
                     </button>
                     <input
                       ref={paragraphCounterRef}
-                      class="outline-none focus:outline-none text-center w-full bg-gray-300 font-semibold text-md hover:text-black focus:text-black  md:text-basecursor-default flex items-center text-gray-700  outline-none"
+                      className="outline-none focus:outline-none text-center w-full bg-gray-300 font-semibold text-md hover:text-black focus:text-black  md:text-basecursor-default flex items-center text-gray-700"
                       name="custom-input-number"
-                      value={numParagraphs}
+                      defaultValue={numParagraphs}
                     ></input>
                     <button
                       data-action="increment"
-                      class="bg-gray-300 text-gray-600 hover:text-gray-700 hover:bg-gray-400 h-full w-20 rounded-r cursor-pointer"
+                      className="bg-gray-300 text-gray-600 hover:text-gray-700 hover:bg-gray-400 h-full w-20 rounded-r cursor-pointer"
                       onClick={incrementParagraphs}
                     >
-                      <span class="m-auto text-2xl font-thin">+</span>
+                      <span className="m-auto text-2xl font-thin">+</span>
                     </button>
                   </div>
                 </div>
