@@ -1,8 +1,9 @@
 import Head from "next/head";
 import { useEffect, useState, useRef } from "react";
 import axios from "axios";
-import NavBar from "../components/navbar";
-import Footer from "../components/footer";
+import NavBar from "../components/NavBar/NavBar";
+import Footer from "../components/Footer/Footer";
+import { PageHeader } from '../components/PageHeader/PageHeader'
 
 // CONSTANTS
 const MAX_PARAGRAPHS = 25; // MAXIMUM LIMIT OF PARAGRAPHS TO FETCH
@@ -130,28 +131,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <NavBar />
-      {/* HEADER */}
-      <header>
-        <div className="text-center m-10">
-          <p className="dark:text-white transition-colors duration-200 mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">
-            A better way to Dev...with the Dead!
-          </p>
-          <p className="mt-4 max-w-2xl text-xl text-gray-500 dark:text-gray-200 lg:mx-auto">
-            In the publishing and graphic design worlds, it's common to need
-            "placeholder" text in order to demonstrate how copy will appear
-            visually, without relying on{" "}
-            <span className="italic">the actual</span> text being available.
-            <br />
-          </p>
-          <p className="mt-4 max-w-2xl text-xl text-gray-500 dark:text-gray-200 lg:mx-auto">
-            Enter <span className="font-bold">Grateful Ipsum</span>
-            ...placeholder text for{" "}
-            <span className="font-mono">{`Dead<head>s`}</span>
-          </p>
-        </div>
-      </header>
-
-      {/* MAIN */}
+      <PageHeader />
       <main className="container mx-auto max-w-3xl">
         <div className="shadow flex flex-col justify-between items-end py-4 px-6 bg-gray-100 rounded sticky top-0 sm:relative dark:bg-gray-800 md:flex-row">
           <form
@@ -279,8 +259,6 @@ export default function Home() {
           ))}
         </div>
       </main>
-
-      {/* FOOTER */}
       <Footer toggleDarkMode={toggleDarkMode} />
     </div>
   );
