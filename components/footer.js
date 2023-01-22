@@ -56,9 +56,13 @@ const Footer = ({ toggleDarkMode }) => {
           </div>
           <div className="md:hidden mt-4 mx-auto w-11 h-px rounded-full "></div>
           <div className="mt-7 md:mt-0 flex-1 flex flex-col items-center justify-center md:items-start md:pl-5">
-            <span className="">© 2021</span>
+            {/* <span className="">Feeling <a
+                className="underline hover:text-primary-gray-20"
+                href="#"
+              >Phishy</a>?</span> */}
+            <span className="">Last Updated: Jan 2023</span>
             <span className="mt-7 md:mt-1">
-              Created by&nbsp;
+              With love,&nbsp;
               <a
                 className="underline hover:text-primary-gray-20"
                 href="https://www.github.com/just2jays/grateful-ipsum"

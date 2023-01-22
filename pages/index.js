@@ -1,9 +1,10 @@
 import Head from "next/head";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import axios from "axios";
 import NavBar from "../components/navbar";
 import Footer from "../components/footer";
 
+// CONSTANTS
 const MAX_PARAGRAPHS = 25; // MAXIMUM LIMIT OF PARAGRAPHS TO FETCH
 
 export default function Home() {
@@ -14,18 +15,27 @@ export default function Home() {
   const [jerryMode, setJerryMode] = useState(false);
   const [darkMode, setDarkMode] = useState(false);
 
-  useEffect(() => {
-    fetchTextFromApi();
-  }, [numParagraphs, withDeadAndCo, jerryMode]);
+  const paragraphCounterRef = useRef(null);
 
-  const fetchTextFromApi = () => {
+  useEffect(() => {
+    fetchTextFromApi(numParagraphs);
+  }, []);
+
+  /**
+   * Calls the API to fetch the text
+   * @param {number} numParagraphs - number of paragraphs to fetch
+   * @param {object} optionsObj  - options to pass to the API
+   * @param {boolean} optionsObj.withDeadAndCo - whether to include Dead & Co. terms
+   * @param {boolean} optionsObj.jerryMode - whether to include Jerry Garcia terms
+   * @return {void} - response is stored in state
+   */
+  const fetchTextFromApi = (numParagraphs, optionsObj = {}) => {
     setIsLoading(true);
     axios
       .get("/api/dead", {
         params: {
-          numParagraphs: numParagraphs <= MAX_PARAGRAPHS ? numParagraphs : MAX_PARAGRAPHS,
-          withDeadAndCo: withDeadAndCo,
-          jerryMode: jerryMode,
+          numParagraphs: numParagraphs,
+          ...optionsObj
         },
       })
       .then((response) => {
@@ -66,10 +76,39 @@ export default function Home() {
     }, 2000)
   }
 
+  const incrementParagraphs = (e) => {
+    e.preventDefault();
+    if(numParagraphs >= MAX_PARAGRAPHS) {
+      console.log(paragraphCounterRef.current.classList);
+      paragraphCounterRef.current.classList.add('border', 'border-red-500');
+      setTimeout(() => {
+        paragraphCounterRef.current.classList.remove('border', 'border-red-500');
+      }, 1000);
+      return;
+    }
+    setNumParagraphs(numParagraphs + 1);
+  }
+
+  const decrementParagraphs = (e) => {
+    e.preventDefault();
+    if(numParagraphs <= 1) {
+      console.log(paragraphCounterRef.current.classList);
+      paragraphCounterRef.current.classList.add('border', 'border-red-500');
+      setTimeout(() => {
+        paragraphCounterRef.current.classList.remove('border', 'border-red-500');
+      }, 1000);
+      return;
+    }
+    setNumParagraphs(numParagraphs - 1);
+  }
+
   return (
     <div id="app__Homepage" className="dark:bg-gray-600">
       <Head>
-        <title>Grateful Ipsum | Generate placeholder text with inspiration from the Grateful Dead</title>
+        <title>
+          Grateful Ipsum | Generate placeholder text with inspiration from the
+          Grateful Dead
+        </title>
         <meta
           name="description"
           content="A Lorem Ipsum placeholder text generator using terms from the greatest band in the land, the Grateful Dead."
@@ -81,7 +120,10 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
 
         {/* Global Site Tag (gtag.js) - Google Analytics */}
-        <script async src={`https://www.googletagmanager.com/gtag/js?id=G-14GWEHQM0J`}/>
+        <script
+          async
+          src={`https://www.googletagmanager.com/gtag/js?id=G-14GWEHQM0J`}
+        />
         <script
           dangerouslySetInnerHTML={{
             __html: `
@@ -96,7 +138,7 @@ export default function Home() {
       <NavBar />
       {/* HEADER */}
       <header>
-        <div className="lg:text-center m-10">
+        <div className="text-center m-10">
           <p className="dark:text-white transition-colors duration-200 mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">
             A better way to Dev...with the Dead!
           </p>
@@ -110,39 +152,99 @@ export default function Home() {
           <p className="mt-4 max-w-2xl text-xl text-gray-500 dark:text-gray-200 lg:mx-auto">
             Enter <span className="font-bold">Grateful Ipsum</span>
             ...placeholder text for{" "}
-            <span className="font-mono">{`Dead</head>s`}</span>
+            <span className="font-mono">{`Dead<head>s`}</span>
           </p>
         </div>
       </header>
 
       {/* MAIN */}
       <main className="container mx-auto max-w-3xl">
-        <div className="shadow flex justify-between items-end p-2 bg-gray-100 rounded sticky top-0 sm:relative dark:bg-gray-800">
+        <div className="shadow flex flex-col justify-between items-end py-4 px-6 bg-gray-100 rounded sticky top-0 sm:relative dark:bg-gray-800 md:flex-row">
           <form
             className="w-full"
             onSubmit={(e) => {
               e.preventDefault();
-              fetchTextFromApi();
+              fetchTextFromApi(
+                numParagraphs <= MAX_PARAGRAPHS
+                  ? numParagraphs
+                  : MAX_PARAGRAPHS,
+                { withDeadAndCo, jerryMode }
+              );
             }}
           >
-            <div className="flex">
-              <div className="container">
+            <div className="input__container flex flex-col gap-x-8 md:flex-row">
+              <div className="flex-none">
                 <label className="dark:text-gray-200 leading-7 text-sm text-gray-600">
                   # of Paragraphs &nbsp;
                 </label>
-                <input
-                  type="text"
-                  className="dark:text-white w-20 bg-gray-50 bg-opacity-50 rounded border border-gray-300 focus:ring-2 focus:ring-indigo-200 focus:border-indigo-500 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
-                  placeholder="# of paragraphs"
-                  value={numParagraphs}
-                  onChange={(event) => {
-                    setNumParagraphs(event.target.value);
+                <div class="custom-number-input h-10 w-32">
+                  <div class="flex flex-row h-10 w-full rounded-lg relative bg-transparent mt-1">
+                    <button
+                      data-action="decrement"
+                      class=" bg-gray-300 text-gray-600 hover:text-gray-700 hover:bg-gray-400 h-full w-20 rounded-l cursor-pointer outline-none"
+                      onClick={decrementParagraphs}
+                    >
+                      <span class="m-auto text-2xl font-thin">−</span>
+                    </button>
+                    <input
+                      ref={paragraphCounterRef}
+                      class="outline-none focus:outline-none text-center w-full bg-gray-300 font-semibold text-md hover:text-black focus:text-black  md:text-basecursor-default flex items-center text-gray-700  outline-none"
+                      name="custom-input-number"
+                      value={numParagraphs}
+                    ></input>
+                    <button
+                      data-action="increment"
+                      class="bg-gray-300 text-gray-600 hover:text-gray-700 hover:bg-gray-400 h-full w-20 rounded-r cursor-pointer"
+                      onClick={incrementParagraphs}
+                    >
+                      <span class="m-auto text-2xl font-thin">+</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <div className="button__container w-full flex justify-between align-center mt-4 md:mt-auto">
+                <button
+                  type="submit"
+                  className="transition-colors duration-200 inline-flex items-center justify-center text-white bg-blue-700 border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded mr-1 w-full md:w-auto"
+                  onClick={() => {
+                    fetchTextFromApi(
+                      numParagraphs <= MAX_PARAGRAPHS
+                        ? numParagraphs
+                        : MAX_PARAGRAPHS,
+                      { withDeadAndCo, jerryMode }
+                    );
                   }}
-                />
-                <span className="dark:text-gray-200 leading-7 text-sm text-gray-600">&nbsp;(Max 25)</span>
+                >
+                  Generate
+                </button>
+                <button
+                  className="transition-colors duration-200 bg-blue-700 hover:bg-red-600 text-white py-2 px-6 rounded inline-flex items-center justify-center w-full md:w-auto"
+                  onClick={copyGeneratedParagraphs}
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="clipboard-svg-icon"
+                  >
+                    <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path>
+                    <rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect>
+                  </svg>
+                  <span>&nbsp;Copy</span>
+                </button>
               </div>
             </div>
-            <div className="flex flex w-3/4 md:w-2/4">
+
+            <hr className="my-4" />
+            <label className="block mb-2 w-full">Options:</label>
+            <div className="options__container flex flex w-3/4 md:w-2/4">
               <div className="container">
                 <input
                   type="checkbox"
@@ -167,19 +269,6 @@ export default function Home() {
               </div>
             </div>
           </form>
-          <button
-            className="transition-colors duration-200 inline-flex text-white bg-blue-700 border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded mr-1"
-            onClick={fetchTextFromApi}
-          >
-            Generate
-          </button>
-          <button
-            className="transition-colors duration-200 bg-blue-700 hover:bg-red-600 text-white py-2 px-6 rounded inline-flex items-center"
-            onClick={copyGeneratedParagraphs}
-          >
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="clipboard-svg-icon"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg>
-            <span>Copy</span>
-          </button>
         </div>
 
         <div
