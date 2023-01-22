@@ -44,6 +44,10 @@ export default function Home() {
       });
   };
 
+  /**
+   * Toggle dark mode functionality
+   * @param {*} e 
+   */
   const toggleDarkMode = (e) => {
     e.preventDefault();
 
@@ -56,6 +60,11 @@ export default function Home() {
     }
   };
 
+  /**
+   * Native copy functionality for generated text
+   * @param {*} e
+   * @return {void}
+   */
   const copyGeneratedParagraphs = (e) => {
     e.preventDefault();
     
@@ -76,6 +85,12 @@ export default function Home() {
     }, 2000)
   }
 
+  /**
+   * Increment the number of paragraphs to fetch
+   * @param {*} e
+   * @return {void}
+   * @todo - refactor to use a single function for incrementing/decrementing
+   */
   const incrementParagraphs = (e) => {
     e.preventDefault();
     if(numParagraphs >= MAX_PARAGRAPHS) {
@@ -89,6 +104,11 @@ export default function Home() {
     setNumParagraphs(numParagraphs + 1);
   }
 
+  /**
+   * Decrement the number of paragraphs to fetch
+   * @param {*} e
+   * @return {void}
+   */
   const decrementParagraphs = (e) => {
     e.preventDefault();
     if(numParagraphs <= 1) {
