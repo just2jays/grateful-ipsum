@@ -2,7 +2,12 @@ import React from 'react';
 
 const Footer = ({ toggleDarkMode }) => {
   return (
-    <footer className="px-3 py-8 bg-white dark:bg-gray-700 text-2 text-gray-500 dark:text-gray-200 mt-10 xl:mt-20">
+    <footer className="px-3 py-8 bg-white dark:bg-gray-700 text-2 text-gray-500 dark:text-gray-200 mt-6">
+      <div className="flex flex-col items-center md:mb-10">
+        <div className="promotion__container">
+          <a href="https://www.producthunt.com/posts/grateful-ipsum?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-grateful&#0045;ipsum" target="_blank"><img src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=376126&theme=light" alt="Grateful&#0032;Ipsum - A&#0032;better&#0032;way&#0032;to&#0032;Dev&#0046;&#0046;&#0046;with&#0032;The&#0032;Dead&#0033; | Product Hunt" style={{width: '250px', height: '54px'}} width="250" height="54" /></a>
+        </div>
+      </div>
       <div className="flex flex-col">
         <div className="md:hidden mt-7 mx-auto w-11 h-px rounded-full"></div>
         <div className="mt-4 md:mt-0 flex flex-col md:flex-row">
