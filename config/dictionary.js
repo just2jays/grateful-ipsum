@@ -95,7 +95,7 @@ const deadDictionary = [
   'big river',
   'one heat up',
   'one cool down',
-  'siitin\' plush',
+  'sittin\' plush',
   'royal flush',
   'gold of sunshine',
   'let there be songs',
